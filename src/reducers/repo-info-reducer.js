@@ -1,4 +1,5 @@
-import { GET_REPO_INFO_SUCCESS, GET_REPO_INFO_REQUEST, GET_REPO_INFO_FAILURE } from '../actions/github-actions';
+import { GET_REPO_INFO_SUCCESS, GET_REPO_INFO_REQUEST, GET_REPO_INFO_FAILURE }
+    from '../actions/github-actions';
 
 const initialState = {
     fetching: false,
@@ -15,7 +16,6 @@ export function repoInformationData(state = initialState, action) {
                 error: null,
             }
         case GET_REPO_INFO_SUCCESS:
-            console.log(action.info);
             return {
                 ...state,
                 fetching: false,
