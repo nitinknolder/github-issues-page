@@ -4,7 +4,7 @@ import { repoInformationData } from './repo-info-reducer';
 import { counterReducer } from './counter-reducer';
 
 const rootReducer = combineReducers({
-    gitIsssues: gitIssuesData,
+    gitIssues: gitIssuesData,
     repoInfo: repoInformationData,
     counter: counterReducer
 });

@@ -7,6 +7,7 @@ export const GET_REPO_INFO_FAILURE = 'GET_REPO_INFO_FAILURE';
 export const INCREMENT_COUNT_WATCH = 'INCREMENT_COUNT_WATCH';
 export const INCREMENT_COUNT_STAR = 'INCREMENT_COUNT_STAR';
 export const INCREMENT_COUNT_FORK = 'INCREMENT_COUNT_FORK';
+export const FETCH_MORE_ISSUES = 'FETCH_MORE_ISSUES';
 
 export function getGitIssues() {
     return {
@@ -63,5 +64,11 @@ export function incrementRepoStarCount() {
 export function incrementRepoForkCount() {
     return {
         type: INCREMENT_COUNT_FORK,
+    }
+}
+
+export function fetchMoreIssue() {
+    return {
+        type: FETCH_MORE_ISSUES,
     }
 }

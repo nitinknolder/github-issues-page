@@ -1,7 +1,7 @@
 import React from 'react';
-import GitIssuesContainer from '../../containers/Git-issues-container';
 import './Github-page.scss';
 import GithubTableHeader from './Github-table-headers';
+import GitIssuesContainer from '../../containers/Git-issues-container';
 
 const GithubIssueTable = () => {
     return (

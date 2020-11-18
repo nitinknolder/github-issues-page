@@ -1,8 +1,9 @@
-import { GET_ISSUES_REQUEST, GET_ISSUES_SUCCESS, GET_ISSUES_FAILURE } from '../actions/github-actions';
+import { GET_ISSUES_REQUEST, GET_ISSUES_SUCCESS, GET_ISSUES_FAILURE, FETCH_MORE_ISSUES } from '../actions/github-actions';
 
 const initialState = {
     fetching: false,
     issues: [],
+    filterIssues: [],
     error: null
 }
 
@@ -20,6 +21,7 @@ export function gitIssuesData(state = initialState, action) {
                 ...state,
                 fetching: false,
                 issues: action.issues,
+                filterIssues: action.issues.slice(0, 10),
                 error: null
             }
 
@@ -29,6 +31,14 @@ export function gitIssuesData(state = initialState, action) {
                 fetching: false,
                 issues: initialState,
                 error: action.error
+            }
+        case FETCH_MORE_ISSUES:
+            return {
+                ...state,
+                fetching: false,
+                filterIssues: state.issues.length >= state.filterIssues.length && [
+                    ...state.issues.slice(0, state.filterIssues.length + 9)],
+                error: null,
             }
 
         default:

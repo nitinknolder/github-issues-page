@@ -1,49 +1,36 @@
-import { React, Component } from 'react';
+import { React, useEffect } from 'react';
 import SpinnerComponent from '../component/common/spinner/Spinner';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import SomethingWentWrong from '../component/common/notification/Notify-error';
 import { getRepoInfo } from '../actions/github-actions';
 import HeaderComponent from '../component/common/header/Header';
 
-class GitHeaderContainer extends Component {
+const GitHeaderContainer = () => {
 
-    componentDidMount() {
-        const { requestRepoInfo } = this.props;
-        requestRepoInfo();
-    }
+    const { fetching, repoInfoData, error } = useSelector(state => state.repoInfo);
 
-    render() {
-        const { fetching, repoInfo, error } = this.props;
-        return (
-            <div>
-                {
-                    fetching ? <SpinnerComponent /> : error ? <SomethingWentWrong /> :
-                        !!repoInfo && Object.keys(repoInfo).length > 0
-                        && <HeaderComponent {...repoInfo} />
-                }
-            </div>
-        );
-    }
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getRepoInfo());
+    }, []);
+
+    return (
+        <div>
+            {
+                fetching ? <SpinnerComponent /> : error ? <SomethingWentWrong /> :
+                    !!repoInfoData && Object.keys(repoInfoData).length > 0
+                    && <HeaderComponent {...repoInfoData} />
+            }
+        </div>
+    );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        repoInfo: state.repoInfo.repoInfoData,
-        fetching: state.repoInfo.fetching,
-        error: state.repoInfo.error
-    }
-}
-
-const mapDispatchToProps = dispatch => ({
-    requestRepoInfo: () => dispatch(getRepoInfo()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(GitHeaderContainer);
+export default GitHeaderContainer;
 
 GitHeaderContainer.propTypes = {
-    requestRepoInfo: PropTypes.func.isRequired,
-    fetching: PropTypes.bool.isRequired,
+    fetching: PropTypes.bool,
     error: PropTypes.string
 };
 

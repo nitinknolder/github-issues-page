@@ -12,9 +12,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 const sagaMiddleWare = createSagaMiddleWare();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   rootReducer,
-  compose(applyMiddleware(sagaMiddleWare)),
+  composeEnhancers(applyMiddleware(sagaMiddleWare)),
 )
 
 sagaMiddleWare.run(rootSaga);
